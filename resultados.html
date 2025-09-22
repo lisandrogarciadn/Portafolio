@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados - Lisandro García - Editor de Videos Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(30, 30, 30, 0.95) 50%, rgba(15, 15, 15, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(175, 0, 0, 0.3);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(175, 0, 0, 0.1) 50%, transparent 100%);
+            animation: headerGlow 4s ease-in-out infinite;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #da0000;
+            text-decoration: none;
+            opacity: 0;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: slideInRight 1s ease forwards;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #da0000, #af0000);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .highlight {
+            color: #da0000;
+            font-weight: 600;
+        }
+
+        /* Hero Section para Resultados */
+        .hero-results {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            padding-top: 120px;
+            padding-bottom: 50px;
+        }
+
+        .hero-results::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(218, 0, 0, 0.15) 0%, transparent 50%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        .hero-results-content {
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-results h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #da0000;
+            text-shadow: 0 0 20px rgba(218, 0, 0, 0.3);
+            opacity: 0;
+            animation: slideInUp 1s ease 0.3s forwards;
+        }
+
+        .hero-results-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideInUp 1s ease 0.5s forwards;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #da0000;
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        /* Stats Overview Section */
+        .stats-overview {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #111111 0%, #222222 100%);
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(218, 0, 0, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 1s ease forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.2s; }
+        .stat-card:nth-child(2) { animation-delay: 0.4s; }
+        .stat-card:nth-child(3) { animation-delay: 0.6s; }
+        .stat-card:nth-child(4) { animation-delay: 0.8s; }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: #da0000;
+            box-shadow: 0 15px 40px rgba(218, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #da0000;
+            margin-bottom: 15px;
+            display: block;
+            text-shadow: 0 0 10px rgba(218, 0, 0, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .stat-description {
+            font-size: 0.95rem;
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        /* Results Section */
+        .results-section {
+            padding: 100px 0;
+            background: #0a0a0a;
+            position: relative;
+            z-index: 10;
+        }
+
+        .results-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #da0000;
+        }
+
+        .project-showcase {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .project-showcase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(218, 0, 0, 0.2);
+        }
+
+        .project-container:nth-child(even) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .project-container:nth-child(even) .project-visual {
+            order: 2;
+        }
+
+        .project-container:nth-child(even) .project-info {
+            order: 1;
+        }
+
+        .project-visual {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .project-visual:hover {
+            transform: scale(1.03);
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .results-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #af0000, #da0000);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .project-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #da0000;
+        }
+
+        .project-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(218, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #da0000;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .project-impact {
+            background: rgba(218, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #da0000;
+        }
+
+        .project-impact h4 {
+            color: #da0000;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .project-impact p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #111111 0%, #222222 100%);
+            position: relative;
+            z-index: 10;
+        }
+
+        .testimonials h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #da0000;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(218, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideInUp 1s ease forwards;
+        }
+
+        .testimonial-card:nth-child(1) { animation-delay: 0.2s; }
+        .testimonial-card:nth-child(2) { animation-delay: 0.4s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: #da0000;
+            box-shadow: 0 10px 30px rgba(218, 0, 0, 0.2);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-style: italic;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: #da0000;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            line-height: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #af0000, #da0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .author-info h4 {
+            color: #da0000;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: #0a0a0a;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #da0000;
+        }
+
+        .contact p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #af0000, #da0000);
+            color: #ffffff;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(218, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .contact-button:hover::before {
+            left: 100%;
+        }
+
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(218, 0, 0, 0.5);
+        }
+
+        /* Animations */
+        @keyframes headerGlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-results {
+                padding-top: 120px;
+            }
+            
+            .hero-results h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-container {
+                grid-template-columns: 1fr !important;
+                padding: 30px;
+            }
+
+            .project-container:nth-child(even) .project-visual {
+                order: 1;
+            }
+
+            .project-container:nth-child(even) .project-info {
+                order: 2;
+            }
+
+            .project-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Portafolio - Lisandro García</a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="sobremi.html">Sobre Mí</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Results Section -->
+    <section class="hero-results">
+        <div class="container">
+            <div class="hero-results-content">
+                <h1>Resultados Comprobados</h1>
+                <p class="hero-results-subtitle">Cada proyecto que entrego está diseñado para generar <span class="highlight">impacto real</span> y resultados <span class="highlight">medibles</span> que transforman el crecimiento de mis clientes</p>
+            </div>
+            <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="stats-overview">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">15M+</span>
+                    <div class="stat-label">Visualizaciones Totales</div>
+                    <div class="stat-description">Alcance acumulado en todos los proyectos realizados</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2.5M</span>
+                    <div class="stat-label">Interacciones Generadas</div>
+                    <div class="stat-description">Likes, comentarios y shares en contenido editado</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">94%</span>
+                    <div class="stat-label">Tasa de Retención</div>
+                    <div class="stat-description">Promedio de retención en videos editados</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">150+</span>
+                    <div class="stat-label">Seguidores Nuevos</div>
+                    <div class="stat-description">Promedio de crecimiento por video entregado</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="container">
+            <h2>Casos de Éxito</h2>
+            
+            <div class="project-showcase">
+                <div class="project-container">
+                    <div class="project-visual">
+                        <img src="video1.png" alt="Caso de Éxito - Video Motivacional">
+                        <div class="results-badge">+2.5M Vistas</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Transformación Motivacional Viral</h3>
+                        <p>Un video que comenzó como un simple mensaje motivacional se convirtió en <span class="highlight">contenido viral</span> gracias a técnicas de edición estratégicas, storytelling visual y optimización para algoritmos.</p>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">2.5M</span>
+                                <span class="metric-label">Visualizaciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">450K</span>
+                                <span class="metric-label">Interacciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">95%</span>
+                                <span class="metric-label">Retención</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">+300</span>
+                                <span class="metric-label">Nuevos Seguidores</span>
+                            </div>
+                        </div>
+                        <div class="project-impact">
+                            <h4>Impacto Real</h4>
+                            <p>El cliente experimentó un crecimiento del 35% en seguidores en una semana y recibió múltiples oportunidades de colaboración gracias al alcance del video.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <div class="project-container">
+                    <div class="project-visual">
+                        <img src="video2.png" alt="Caso de Éxito - Contenido Educativo">
+                        <div class="results-badge">+1.8M Vistas</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Masterclass Educativa de Alto Impacto</h3>
+                        <p>Transformé contenido educativo complejo en un video <span class="highlight">fácil de consumir</span> que no solo educase, sino que generase leads cualificados y conversiones reales para el negocio del cliente.</p>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">1.8M</span>
+                                <span class="metric-label">Visualizaciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">320K</span>
+                                <span class="metric-label">Interacciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">88%</span>
+                                <span class="metric-label">Retención</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">+250</span>
+                                <span class="metric-label">Nuevos Seguidores</span>
+                            </div>
+                        </div>
+                        <div class="project-impact">
+                            <h4>Resultado de Negocio</h4>
+                            <p>Generó más de 500 leads cualificados y contribuyó directamente a $15,000 en ventas adicionales para el curso online del cliente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <div class="project-container">
+                    <div class="project-visual">
+                        <img src="video3.png" alt="Caso de Éxito - Contenido Fitness">
+                        <div class="results-badge">+3.2M Vistas</div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Rutina Fitness que Inspiró Acción</h3>
+                        <p>No solo creé un video visualmente atractivo, sino una <span class="highlight">experiencia motivacional</span> que inspiró a miles de personas a comenzar su transformación física, generando engagement extraordinario.</p>
+                        <div class="project-metrics">
+                            <div class="metric">
+                                <span class="metric-value">3.2M</span>
+                                <span class="metric-label">Visualizaciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">580K</span>
+                                <span class="metric-label">Interacciones</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">92%</span>
+                                <span class="metric-label">Retención</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">+400</span>
+                                <span class="metric-label">Nuevos Seguidores</span>
+                            </div>
+                        </div>
+                        <div class="project-impact">
+                            <h4>Impacto Comunitario</h4>
+                            <p>El video inspiró más de 1000 comentarios de personas compartiendo sus propias transformaciones, creando una comunidad activa y engagement sostenido.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>Lo que Dicen Mis Clientes</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Lisandro transformó completamente mi contenido. No solo aumentaron mis vistas, sino que finalmente logré convertir espectadores en clientes reales. Su comprensión del storytelling es excepcional.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>María Rodríguez</h4>
+                            <p>Coach de Desarrollo Personal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Trabajar con Lisandro fue un antes y un después para mi marca personal. Sus videos no solo se ven profesionales, sino que realmente generan resultados medibles en mi negocio.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JL</div>
+                        <div class="author-info">
+                            <h4>Juan López</h4>
+                            <p>Emprendedor Digital</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        La diferencia es notoria. Mis videos anteriores tenían pocas vistas, pero con la edición de Lisandro, cada video supera las 100K visualizaciones. Su enfoque en resultados es impresionante.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AG</div>
+                        <div class="author-info">
+                            <h4>Ana García</h4>
+                            <p>Influencer Fitness</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2>¿Listo Para Estos Resultados?</h2>
+            <p>Si quieres que tu contenido genere el mismo impacto y resultados medibles que ves aquí, hablemos de tu proyecto. Cada video que edito está diseñado para superar tus expectativas.</p>
+            <a href="mailto:lisandro@example.com" class="contact-button">Obtén Resultados Como Estos

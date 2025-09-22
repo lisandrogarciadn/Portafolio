@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Lisandro García - Editor de Videos Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(30, 30, 30, 0.95) 50%, rgba(15, 15, 15, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 0, 0, 0.1) 50%, transparent 100%);
+            animation: headerGlow 4s ease-in-out infinite;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ff0000;
+            text-decoration: none;
+            opacity: 0;
+            animation: slideInLeft 1s ease forwards;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            animation: slideInRight 1s ease forwards;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff0000, #ff4444);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+/* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            padding-top: 120px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 0, 0, 0.15) 0%, transparent 50%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 40px 60px;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .hero-text {
+            position: relative;
+            padding-left: 40px;
+            grid-column: 1;
+            grid-row: 1;
+            align-self: center;
+        }
+
+        .hero-text::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #af0000, #af0000, #af0000);
+            border-radius: 2px;
+            animation: lineGlow 3s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #da0000;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            opacity: 0;
+            animation: slideInLeft 1s ease 0.5s forwards;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideInLeft 1s ease 0.7s forwards;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            line-height: 1.7;
+            opacity: 0;
+            animation: slideInLeft 1s ease 0.9s forwards;
+            color: #cccccc;
+        }
+
+        .cta-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            animation: slideInLeft 1s ease 1.1s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #af0000, #af0000);
+            color: #ffffff;
+            padding: 18px 40px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.1rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 20px;
+            position: absolute;
+            right: 300px;
+            bottom: 125px;
+            transform: translateX(0);
+            grid-column: 2;
+            grid-row: 1;
+            justify-content: center;
+            align-self: end;
+            opacity: 0;
+            animation: slideInUp 1s ease 1.2s forwards;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            transform: translateY(45px);
+            transition: all 0.3s ease;
+        }
+
+        .hero-stat:nth-child(1) {
+            animation-delay: 1.3s;
+        }
+
+        .hero-stat:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        .hero-stat:nth-child(3) {
+            animation-delay: 1.7s;
+        }
+
+        .hero-stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff0000;
+            display: block;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: numberPop 0.6s ease forwards;
+        }
+
+        .hero-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        @keyframes numberPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: slideInRight 1s ease 0.8s forwards;
+            grid-column: 2;
+            grid-row: 1;
+            margin-bottom: 50px; 
+            margin-top: -80px; 
+        }
+
+        .hero-image img {
+            width: 50vw;
+            max-width: 600px;
+            height: 50vh;
+            min-height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .highlight {
+            color: #ff0000;
+            font-weight: 600;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes lineGlow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-20px);
+                opacity: 1;
+            }
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 100px 0;
+            background: #0a0a0a;
+            position: relative;
+            z-index: 10;
+        }
+
+        .portfolio h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #ff0000;
+        }
+
+        .video-showcase {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .video-showcase.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .video-container:nth-child(even) {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .video-container:nth-child(even) .video-preview {
+            order: 2;
+        }
+
+        .video-container:nth-child(even) .video-info {
+            order: 1;
+        }
+
+        /* Estilos mejorados para el video */
+        .video-preview {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+            aspect-ratio: 9/16; /* Formato vertical para videos móviles */
+            max-height: 500px;
+            background: #000;
+        }
+
+        .video-preview:hover {
+            transform: scale(1.02);
+        }
+
+        .video-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-preview video:hover {
+            filter: brightness(1.1);
+        }
+
+        /* Overlay de play para mejor UX */
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .play-overlay::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
+        .play-overlay:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+        }
+
+        .video-preview.playing .play-overlay {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .video-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        .video-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .video-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff0000;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #111111 0%, #222222 100%);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #ff0000;
+        }
+
+        .contact p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff0000, #ff4444);
+            color: #ffffff;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding-top: 100px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-text {
+                padding-left: 0;
+            }
+
+            .hero-text::before {
+                display: none;
+            }
+
+            .hero-stats {
+                position: relative;
+                right: auto;
+                bottom: auto;
+                transform: translateX(0);
+                justify-content: center;
+                margin-top: 30px;
+                width: 100%;
+            }
+
+            .hero-image {
+                margin-top: -40px;
+                margin-bottom: 50px;
+            }
+
+            .video-container {
+                grid-template-columns: 1fr !important;
+            }
+
+            .video-container:nth-child(even) .video-preview {
+                order: 1;
+            }
+
+            .video-container:nth-child(even) .video-info {
+                order: 2;
+            }
+
+            .video-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .video-preview {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">Portafolio - Lisandro García</a>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="sobremi.html">Sobre Mí</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Editor Profesional</h1>
+                    <p class="hero-subtitle">Transformo contenido <span class="highlight">ordinario</span> en experiencias visuales <span class="highlight">extraordinarias</span></p>
+                    <p class="hero-description">Especializado en <span class="highlight">videos verticales</span> que capturan atención, generan <span class="highlight">engagement</span> y convierten espectadores en <span class="highlight">seguidores fieles</span> a través de técnicas avanzadas de edición y storytelling visual.</p>
+                    <div class="cta-section">
+                        <a href="#contacto" class="cta-button">Comencemos Tu Proyecto</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="imagen1.png" alt="Lisandro García - Editor de Videos">
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">6</span>
+                        <span class="hero-stat-label">Meses</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">+50</span>
+                        <span class="hero-stat-label">Videos</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">95%</span>
+                        <span class="hero-stat-label">Satisfacción</span>
+                    </div>
+                </div>
+            </div>
+            <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portafolio" class="portfolio">
+        <div class="container">
+            <h2>Mi Portafolio</h2>
+            
+            <div class="video-showcase">
+                <div class="video-container">
+                    <div class="video-preview">
+                        <video preload="metadata">
+                            <source src="video1.mp4" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                        <div class="play-overlay"></div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Transformación Motivacional</h3>
+                        <p>Un video que transforma un <span class="highlight">mensaje motivacional común</span> en una experiencia visual impactante. Utilizando técnicas de edición avanzadas, logré crear un <span class="highlight">flujo narrativo</span> que mantiene al espectador enganchado desde el primer segundo hasta el final.</p>
+                        <div class="video-tags">
+                            <span class="tag">Motivación</span>
+                            <span class="tag">Desarrollo Personal</span>
+                            <span class="tag">Storytelling</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat">
+                                <span class="stat-number">95%</span>
+                                <span class="stat-label">Retención</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">1080p</span>
+                                <span class="stat-label">Calidad HD</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">15</span>
+                                <span class="stat-label">Efectos Aplicados</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-showcase">
+                <div class="video-container">
+                    <div class="video-preview">
+                        <video preload="metadata">
+                            <source src="video2.mp4" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                        <div class="play-overlay"></div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Pasión Deportiva</h3>
+                        <p>Un proyecto que combina la <span class="highlight">energía del fútbol</span> con técnicas de edición cinematográfica. Cortes dinámicos sincronizados con la música, transiciones fluidas y <span class="highlight">colorización profesional</span> que resalta la intensidad del deporte. Las tipografías seleccionadas complementan perfectamente la narrativa deportiva.</p>
+                        <div class="video-tags">
+                            <span class="tag">Deportes</span>
+                            <span class="tag">Colorización</span>
+                            <span class="tag">Sincronización Musical</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat">
+                                <span class="stat-number">90%</span>
+                                <span class="stat-label">Retención</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">4K</span>
+                                <span class="stat-label">Resolución</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">60fps</span>
+                                <span class="stat-label">Fluidez</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-showcase">
+                <div class="video-container">
+                    <div class="video-preview">
+                        <video preload="metadata">
+                            <source src="video3.mp4" type="video/mp4">
+                            Tu navegador no soporta el elemento video.
+                        </video>
+                        <div class="play-overlay"></div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Narrativa Emocional</h3>
+                        <p>Un proyecto sensible que aborda temas profundos como el <span class="highlight">pánico, la soledad y los desafíos emocionales</span> con un enfoque visual empático y profesional. Motion graphics sutiles y tipografías cuidadosamente seleccionadas crean una experiencia que <span class="highlight">conecta emocionalmente</span> mientras mantiene un mensaje de esperanza y comprensión.</p>
+                        <div class="video-tags">
+                            <span class="tag">Salud Mental</span>
+                            <span class="tag">Motion Graphics</span>
+                            <span class="tag">Tipografía Expresiva</span>
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat">
+                                <span class="stat-number">85%</span>
+                                <span class="stat-label">Retención</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Capas Gráficas</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">8</span>
+                                <span class="stat-label">Fuentes Usadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <h2>Llevemos Tu Contenido al Siguiente Nivel</h2>
+            <p>Si tienes un mensaje importante que compartir pero sientes que tu contenido no está generando el impacto que merece, estoy aquí para ayudarte. Juntos podemos transformar tu visión en videos que no solo se vean increíbles, sino que generen resultados reales.</p>
+            <a href="mailto:lisandro@example.com" class="contact-button">Comencemos Tu Proyecto</a>
+        </div>
+    </section>
+
+    <script>
+        // Función para manejar la reproducción de videos
+        function setupVideoPlayback() {
+            const videoPreviews = document.querySelectorAll('.video-preview');
+            
+            videoPreviews.forEach(preview => {
+                const video = preview.querySelector('video');
+                const playOverlay = preview.querySelector('.play-overlay');
+                
+                // Función para reproducir/pausar video
+                function toggleVideo() {
+                    if (video.paused) {
+                        // Pausar todos los otros videos primero
+                        document.querySelectorAll('video').forEach(v => {
+                            if (v !== video) {
+                                v.pause();
+                                v.currentTime = 0;
+                                v.closest('.video-preview').classList.remove('playing');
+                            }
+                        });
+                        
+                        // Reproducir el video actual
+                        video.play();
+                        preview.classList.add('playing');
+                    } else {
+                        video.pause();
+                        preview.classList.remove('playing');
+                    }
+                }
+                
+                // Event listeners para click en video y overlay
+                video.addEventListener('click', toggleVideo);
+                playOverlay.addEventListener('click', toggleVideo);
+                
+                // Mostrar overlay cuando el video se pausa
+                video.addEventListener('pause', () => {
+                    preview.classList.remove('playing');
+                });
+                
+                // Ocultar overlay cuando el video se reproduce
+                video.addEventListener('play', () => {
+                    preview.classList.add('playing');
+                });
+                
+                // Mostrar overlay cuando el video termina
+                video.addEventListener('ended', () => {
+                    preview.classList.remove('playing');
+                    video.currentTime = 0;
+                });
+            });
+        }
+
+        // Smooth scrolling for navigation links (only for anchors that exist on current page)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all video showcases
+        document.querySelectorAll('.video-showcase').forEach(showcase => {
+            observer.observe(showcase);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+                header.style.backdropFilter = 'blur(15px)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add staggered animation delays to navigation items
+        document.querySelectorAll('nav a').forEach((link, index) => {
+            link.style.animationDelay = `${0.1 + index * 0.1}s`;
+        });
+
+        // Inicializar la funcionalidad de video cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', setupVideoPlayback);
+    </script>
+</body>
+</html>
